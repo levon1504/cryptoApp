@@ -46,8 +46,14 @@ export function CryptoContextProvider({ children }) {
     setAsset((prev) => mapAssets([...prev, newAsset], crypto));
   }
 
+  function removeAsset(assetId) {
+    setAsset((prev) => prev.filter((asset) => asset.id !== assetId));
+  }
+
   return (
-    <CryptoContext.Provider value={{ loading, crypto, assets, addAsset }}>
+    <CryptoContext.Provider
+      value={{ loading, crypto, assets, addAsset, removeAsset }}
+    >
       {children}
     </CryptoContext.Provider>
   );

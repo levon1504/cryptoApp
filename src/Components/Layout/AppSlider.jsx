@@ -1,6 +1,19 @@
 import React from "react";
-import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
-import { Layout, Card, Statistic, List, Typography, Tag } from "antd";
+import {
+  ArrowDownOutlined,
+  ArrowUpOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
+import {
+  Layout,
+  Card,
+  Statistic,
+  List,
+  Typography,
+  Tag,
+  Button,
+  Spin,
+} from "antd";
 import { capitalaiz } from "../../UtilFn";
 import { useContext } from "react";
 import CryptoContext from "../context/crypto-context";
@@ -13,7 +26,7 @@ const siderStyle = {
 };
 
 const AppSlider = () => {
-  const { loading, assets } = useContext(CryptoContext);
+  const { loading, assets, removeAsset } = useContext(CryptoContext);
 
   if (loading) {
     return <Spin fullscreen />;
@@ -29,6 +42,15 @@ const AppSlider = () => {
             background: "linear-gradient(90deg, #ffffff,#adecff)",
             boxShadow: "0 2px 8px rgba(0,0,0,0.08)", // тень вокруг карточки
           }}
+          extra={
+            <Button
+              type="text"
+              danger
+              icon={<DeleteOutlined />}
+              onClick={() => removeAsset(asset.id)}
+              style={{ padding: 0 }}
+            />
+          }
         >
           <Statistic
             title={capitalaiz(asset.id)}
