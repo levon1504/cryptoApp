@@ -12,7 +12,6 @@ export async function fakeFetchCrypto() {
 
     const data = await response.json();
 
-    // Преобразуем данные в формат, совместимый с существующей структурой
     const transformedData = {
       result: data.map((coin) => ({
         id: coin.id,
@@ -21,7 +20,7 @@ export async function fakeFetchCrypto() {
         symbol: coin.symbol.toUpperCase(),
         rank: coin.market_cap_rank,
         price: coin.current_price,
-        priceBtc: coin.current_price / 44870.39834657236, // Примерное соотношение к BTC
+        priceBtc: coin.current_price / 44870.39834657236,
         volume: coin.total_volume,
         marketCap: coin.market_cap,
         availableSupply: coin.circulating_supply,
@@ -47,7 +46,7 @@ export async function fakeFetchCrypto() {
     return transformedData;
   } catch (error) {
     console.error("Error fetching crypto data:", error);
-    // Возвращаем fallback данные в случае ошибки
+
     return {
       result: [],
       meta: {
@@ -64,7 +63,6 @@ export async function fakeFetchCrypto() {
 
 export async function fetchAssets() {
   try {
-    // Получаем данные о популярных криптовалютах для создания примеров активов
     const response = await fetch(
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false&locale=en"
     );
@@ -75,10 +73,9 @@ export async function fetchAssets() {
 
     const data = await response.json();
 
-    // Создаем примеры активов на основе полученных данных
     const assets = data.slice(0, 5).map((coin) => ({
       id: coin.id,
-      amount: Math.random() * 10, // Случайное количество
+      amount: Math.random() * 10,
       price: coin.current_price,
       date: new Date(),
     }));
@@ -86,7 +83,7 @@ export async function fetchAssets() {
     return assets;
   } catch (error) {
     console.error("Error fetching assets:", error);
-    // Возвращаем fallback данные в случае ошибки
+
     return [
       {
         id: "bitcoin",
